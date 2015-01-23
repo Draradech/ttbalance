@@ -1,0 +1,11 @@
+//ENTRY(ID,  var,                  rightshift,  resolution,    unit,    name,                      minvalue,   maxvalue  )
+
+ENTRY('1', controlPara.target,                0,    1.0,         "",   "Target",             -255.0,   255.0      )
+ENTRY('2', controlPara.ppart,                0,    1.0,         "",   "ppart",             -255.0,   255.0      )
+ENTRY('3', controlPara.dpart,                0,    1.0,         "",   "dpart",             -255.0,   255.0      )
+ENTRY('4', controlPara.ipart,                0,    1.0,         "",   "ipart",             -255.0,   255.0      )
+ENTRY('5', controlPara.targetSpeed,                0,    1.0,         "",   "targetspeed",             -255.0,   255.0      )
+ENTRY('6', controlPara.speedgain,                0,    1.0,         "",   "speedgain",             -255.0,   255.0      )
+ENTRY('7', controlPara.targetOffset,                0,    1.0,         "",   "offset",             -255.0,   255.0      )
+ENTRY('8', controlPara.lamp,                 0,    1.0,         "PWM",   "Power Lamp",                 0.0,   255.0      )
+ENTRY(0,   lastLoopTicks,                    0,    0.0,           "-",   "Ende der Tabelle",           0.0,     0.0      )

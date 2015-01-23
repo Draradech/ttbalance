@@ -1,0 +1,12 @@
+//ENTRY(ID,  var,              rightshift,     resolution,    unit,    name,                                  minvalue,   maxvalue  )
+
+ENTRY('0', attitude.voltage,          0,       0.001,         "V",     "Solarspannung",                         0.0,       5.0      )
+ENTRY('1', lastLoopTicks,             0,       1.0,           "%",     "Prozessorauslastung",                   0.0,     100.0      )
+ENTRY('2', rawSensorData.voltage,     0,       1.0,           "",      "Raw Solarspannung",                     0.0,    1024.0      )
+ENTRY('3', attitude.speed,      0,       1.0,           "",      "Speed ",                   -1024.0,     1024.0      )
+ENTRY('4', attitude.speedslow,      10,       1.0 / 1024,           "",      "Speed Slow ",                   -1024.0,     1024.0      )
+ENTRY('5', out.target,      0,       1.0,           "",      "target",                                 0.0,       1024.0      )
+ENTRY('6', out.power,      0,       1.0,           "",      "power",                                 -255.0,       255.0      )
+ENTRY('7', out.p,      0,       1.0,           "",      "power p",                                 -255.0,       255.0      )
+ENTRY('8', out.d,      0,       1.0,           "",      "power d",                                 -255.0,       255.0      )
+ENTRY(0,   lastLoopTicks,             0,       0.0,           "-",     "Ende der Tabelle",                      0.0,       0.0      )
