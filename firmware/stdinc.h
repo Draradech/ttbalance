@@ -12,7 +12,6 @@
 
 #include <avr/io.h>
 #include <avr/interrupt.h>
-#include <avr/pgmspace.h>
 #include <avr/wdt.h>
 
 #include <util/atomic.h>
@@ -77,7 +76,5 @@ void readSensors(void);
 void attitudeCalculation(void);
 
 void actuate(void);
-
-int16_t atan2_cordic(int16_t y, int16_t x);
 
 #endif // _STDINC_H_

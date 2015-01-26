@@ -2,7 +2,7 @@
 
 void init(void)
 {
-   // PA0 - Battery
+   // PA0 - Solar Voltage
 
    // PA1 - Switch
    PORTA |= (1 << PA1);
@@ -11,8 +11,7 @@ void init(void)
 
    // PA3
 
-   // PA4 - MaxSonar Trigger
-   DDRA |= (1 << PA4);
+   // PA4
 
    // PA5
 
@@ -61,7 +60,7 @@ void init(void)
 
    // PD1 - Bluetooth TX
 
-   // PD2 - MaxSonar RX
+   // PD2
 
    // PD3
 
@@ -97,14 +96,14 @@ void init(void)
 
    TIMSK0 = (1 << OCIE0A);     // Output compare interrupt enable
 
-   // Timer 1 - PWM on OC1B (Lamp)
+   // Timer 1 - PWM Lamp on OC1B (PD4)
    TCCR1A = (1 << COM1B1)      // clear on compare match
           | (1 << WGM10);
    TCCR1B = (1 << WGM12)       // fast pwm
           | (1 << CS10)
           | (1 << CS11);       // prescalar 64 -> 1200Hz PWM
 
-   // Timer 2 - 2x PWM
+   // Timer 2 - PWM Motor on OC2B (PD6)
    TCCR2A = (1 << COM2B1)
           | (1 << WGM20);      // non-inverting phase-correct PWM mode
    TCCR2B = (1 << CS20);       // Prescalar 1 -> ~80khz PWM

@@ -55,26 +55,6 @@ void input(void)
             measurementOut = false;
             break;
          }
-         case 'x':
-         {
-            measurementOut = !measurementOut;
-            break;
-         }
-         case 'g':
-         {
-            //controlPara.enableDrivearound = data[0];
-            break;
-         }
-         case 'f':
-         {
-            //rawSensorData.position += (int8_t)data[0] * 10;
-            break;
-         }
-         case 'l':
-         {
-            //rawSensorData.diffSide += (int8_t)data[0];
-            break;
-         }
       }
    }
 }
