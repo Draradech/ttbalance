@@ -95,8 +95,8 @@ int main(int argc, char** argv)
     pTool->getUi()->sendPacketBegin('m');
     pTool->getUi()->sendPacketEnd();
 	
-	printf("enter mainloop\n");
-	system("sleep 1");
+    printf("enter mainloop\n");
+    system("sleep 1");
     glutMainLoop();
 
     delete pTool;

@@ -55,6 +55,11 @@ void input(void)
             measurementOut = false;
             break;
          }
+         case 'x':
+         {
+            measurementOut = !measurementOut;
+            break;
+         }
       }
    }
 }

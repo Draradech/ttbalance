@@ -8,12 +8,20 @@ void actuate()
    int16_t power, powerLimit, target;
 
    OCR1B = controlPara.lamp;
+
+   if(ABS(attitude.speed) > 32)
+   {
+      state.targetSub -= controlPara.ipartout * (attitude.speedslow / 1024 - controlPara.targetSpeed * 10) / 128;
+   }
+   while(state.targetSub >= 1000) controlPara.target++, state.targetSub -= 1000;
+   while(state.targetSub <= 1000) controlPara.target--, state.targetSub += 1000;
    
    target = controlPara.target;
    if(ABS(attitude.speedslow) > 20480)
    {
       target += controlPara.targetOffset * SIGN(attitude.speedslow);
    }
+   target += controlPara.ppartout * (attitude.speedslow / 1024 - controlPara.targetSpeed * 10) / 64;
    out.target = target;
    
    out.p = -(int32_t) controlPara.ppart * (rawSensorData.voltage - target) / 64;
@@ -45,7 +53,6 @@ void actuate()
    }
    else if(ABS(attitude.speed) > 32)
    {
-      state.targetSub -= controlPara.ipart * (attitude.speed - controlPara.targetSpeed) / 128;
       state.standstill = 0;
    }
    else
@@ -59,9 +66,6 @@ void actuate()
    }
    out.power = power;
 
-   while(state.targetSub >= 1000) controlPara.target++, state.targetSub -= 1000;
-   while(state.targetSub <= 1000) controlPara.target--, state.targetSub += 1000;
-   
    switch(state.ready)
    {
       case 0: PORTB = 6; break;

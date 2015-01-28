@@ -111,14 +111,15 @@ void init(void)
    // Ram Vars
    attitude.voltage = 2500;
    
-   controlPara.dpart = 80;
+   controlPara.dpart = 100;
    controlPara.ppart = 15;
-   controlPara.ipart = -10;
+   controlPara.ipartout = -20;
+   controlPara.ppartout = 20;
    controlPara.speedgain = 75;
    controlPara.target = 300;
-   controlPara.targetOffset = 15;
+   controlPara.targetOffset = 0;
    controlPara.lamp = 100;
-   controlPara.targetSpeed = 100;
+   controlPara.targetSpeed = 8;
    
    // Enable Interrupts
    sei();

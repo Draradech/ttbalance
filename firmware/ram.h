@@ -26,7 +26,7 @@ typedef struct
 typedef struct
 {
    int16_t   targetSub;
-   int8_t	ready;
+   int8_t    ready;
    int16_t   standstill;
 } SState;
 
@@ -34,7 +34,8 @@ typedef struct
 {
    int16_t   ppart;
    int16_t   dpart;
-   int16_t   ipart;
+   int16_t   ipartout;
+   int16_t   ppartout;
    int16_t   target;
    int16_t   targetSpeed;
    int16_t   targetOffset;
