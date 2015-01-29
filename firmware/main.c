@@ -15,7 +15,6 @@ void noreturn main(void)
       }
 
       readSensors();
-      attitudeCalculation();
       input();
       output();
       actuate();

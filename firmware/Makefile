@@ -11,7 +11,7 @@ TARGET = ttbalance
 
 
 # C source files
-SRC = actuator.c attitude.c environment.c init.c main.c ram.c sensor.c serial.c
+SRC = actuator.c environment.c init.c main.c ram.c sensor.c serial.c
 
 
 # Optimization level

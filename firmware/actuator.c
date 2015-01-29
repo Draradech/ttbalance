@@ -1,89 +1,55 @@
 #include "stdinc.h"
 
-#define SIGN(x) ((x > 0) ? 1 : ((x < 0) ? -1 : 0))
 #define ABS(x) (((x) > 0) ? (x) : -(x))
 
 void actuate()
 {
-   int16_t power, powerLimit, target;
+   int16_t pwmLimit, voltageDeviationOld;
 
-   OCR1B = controlPara.lamp;
+   OCR1B = parameter.pwmLamp;
+   
+   if(parameter.targetSpeed * 10 > controlState.targetSpeedGradlim) controlState.targetSpeedGradlim++;
+   if(parameter.targetSpeed * 10 < controlState.targetSpeedGradlim) controlState.targetSpeedGradlim--;
+   
+   controlState.speedDeviation = sensorData.filteredSpeed / 1024 - controlState.targetSpeedGradlim;
+   
+   controlState.targetVoltageP = (int32_t)parameter.speedP * controlState.speedDeviation / 64;
+   controlState.targetVoltageI += (int32_t)parameter.speedI * controlState.speedDeviation / 128;
+   controlState.targetVoltageWP = parameter.speedWP;
+   controlState.targetVoltage = controlState.targetVoltageP + controlState.targetVoltageI / 1024 + controlState.targetVoltageWP;
+   
+   voltageDeviationOld = controlState.voltageDeviation;
+   controlState.voltageDeviation = controlState.targetVoltage - sensorData.voltage;
+   
+   controlState.pwmP = (int32_t)parameter.voltageP * controlState.voltageDeviation / 2048;
+   controlState.pwmD = (int32_t)parameter.voltageD * (voltageDeviationOld - controlState.voltageDeviation) / 512;
+   controlState.pwmFeedback = (int32_t)sensorData.speed * parameter.speedFeedback / 1024;
+   controlState.pwm = controlState.pwmP + controlState.pwmD + controlState.pwmFeedback;
+ 
+   if (mode == 2 && ABS(controlState.pwm) > 255) mode = 1;
+   if (mode == 1 && ABS(controlState.pwm) < 10) mode = 2;
+   
+   if(mode == 2) pwmLimit = 255;
+   else          pwmLimit = 0;
 
-   if(ABS(attitude.speed) > 32)
-   {
-      state.targetSub -= controlPara.ipartout * (attitude.speedslow / 1024 - controlPara.targetSpeed * 10) / 128;
-   }
-   while(state.targetSub >= 1000) controlPara.target++, state.targetSub -= 1000;
-   while(state.targetSub <= 1000) controlPara.target--, state.targetSub += 1000;
-   
-   target = controlPara.target;
-   if(ABS(attitude.speedslow) > 20480)
-   {
-      target += controlPara.targetOffset * SIGN(attitude.speedslow);
-   }
-   target += controlPara.ppartout * (attitude.speedslow / 1024 - controlPara.targetSpeed * 10) / 64;
-   out.target = target;
-   
-   out.p = -(int32_t) controlPara.ppart * (rawSensorData.voltage - target) / 64;
-   power = out.p;
-   
-   out.d = -(int32_t) controlPara.dpart * (attitude.voltage - attitude.voltageOld) / 128;
-   power += out.d;
-   
-   power += (int32_t) attitude.speed * controlPara.speedgain / 1024;
-   
-   if (  (state.ready == 2)
-      && (ABS(power) > 255)
-      )
-   {
-      state.ready = 1;
-   }
-   
-   if (  (state.ready == 1)
-      && (ABS(power) < 10)
-      )
-   {
-      state.ready = 2;
-   }
-   
-   powerLimit = 255;
-   if(state.ready != 2)
-   {
-      powerLimit = 0;
-   }
-   else if(ABS(attitude.speed) > 32)
-   {
-      state.standstill = 0;
-   }
-   else
-   {
-      state.standstill++;
-   }
-   
-   if(state.standstill > 2500)
-   {
-      power += SIGN(power) * (state.standstill - 2500);
-   }
-   out.power = power;
-
-   switch(state.ready)
+   switch(mode)
    {
       case 0: PORTB = 6; break;
       case 1: PORTB = 4; break;
       case 2: PORTB = 5; break;
    }
    
-   if (power < 0)
+   if (controlState.pwm < 0)
    {
       PORTC |=  (1 << PC2);
       PORTC &= ~(1 << PC3);
-      OCR2B = MIN(-power, powerLimit);
+      OCR2B = MIN(-controlState.pwm, pwmLimit);
    }
-   else if (power > 0)
+   else if (controlState.pwm > 0)
    {
       PORTC &= ~(1 << PC2);
       PORTC |=  (1 << PC3);
-      OCR2B = MIN(power, powerLimit);
+      OCR2B = MIN(controlState.pwm, pwmLimit);
    }
    else
    {

@@ -109,17 +109,14 @@ void init(void)
    TCCR2B = (1 << CS20);       // Prescalar 1 -> ~80khz PWM
 
    // Ram Vars
-   attitude.voltage = 2500;
-   
-   controlPara.dpart = 100;
-   controlPara.ppart = 15;
-   controlPara.ipartout = -20;
-   controlPara.ppartout = 20;
-   controlPara.speedgain = 75;
-   controlPara.target = 300;
-   controlPara.targetOffset = 0;
-   controlPara.lamp = 100;
-   controlPara.targetSpeed = 8;
+   parameter.targetSpeed = 8;
+   parameter.speedP = 100; // 0.1 V / "speed" / 64
+   parameter.speedI = 100; // 0.1 V / "speed" / 128 / 1024
+   parameter.speedWP = 1700; // 1.7 V
+   parameter.voltageP = 96;
+   parameter.voltageD = 80;
+   parameter.speedFeedback = 75;
+   parameter.pwmLamp = 100;
    
    // Enable Interrupts
    sei();
