@@ -13,8 +13,8 @@ void actuate()
       if(standstill < 1000) standstill++;
       else
       {
-         if(parameter.targetSpeed > 0) controlState.targetSpeedGradlim++;
-         else                          controlState.targetSpeedGradlim--;
+         if(parameter.targetSpeed > 0) controlState.targetSpeedGradlim+=2;
+         else                          controlState.targetSpeedGradlim-=2;
       }
    }
    else
@@ -23,6 +23,8 @@ void actuate()
       if(parameter.targetSpeed * 10 > controlState.targetSpeedGradlim) controlState.targetSpeedGradlim++;
       if(parameter.targetSpeed * 10 < controlState.targetSpeedGradlim) controlState.targetSpeedGradlim--;
    }
+
+   controlState.targetSpeedGradlim = LIMIT(controlState.targetSpeedGradlim, -1500, 1500);
    
    controlState.speedDeviation = sensorData.filteredSpeed / 1024 - controlState.targetSpeedGradlim;
    
