@@ -45,10 +45,11 @@
 
 #define MAX(a, b)           (((a) > (b)) ? (a) : (b))
 #define MIN(a, b)           (((a) < (b)) ? (a) : (b))
+#define LIMIT(x, min, max)  (((x) < (min)) ? (min) : (((x) < (max)) ? (x) : (max)))
+
+#define ABS(x)              (((x) > 0) ? (x) : -(x))
 
 #define MS_TO_LOOP(ms)      ((ms) / LOOP_TIME_MS)
-
-#define LIMIT(x, min, max)  (((x) < (min)) ? (min) : (((x) < (max)) ? (x) : (max)))
 
 #define PT1(new_val, old_val, time_constant_ms) \
    ((old_val) + ((new_val) - (old_val)) / MS_TO_LOOP(time_constant_ms))

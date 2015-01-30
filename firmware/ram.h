@@ -14,7 +14,7 @@ typedef struct
    int16_t   voltageRaw;
    int16_t   voltage;        // LSB: 0.001 V
    int16_t   pulses;
-   int16_t   speed;
+   int32_t   speed;
    int32_t   filteredSpeed;
 } SSensorData;
 

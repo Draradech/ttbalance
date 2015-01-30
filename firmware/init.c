@@ -109,11 +109,11 @@ void init(void)
    TCCR2B = (1 << CS20);       // Prescalar 1 -> ~80khz PWM
 
    // Ram Vars
-   parameter.targetSpeed = 8;
-   parameter.speedP = 100; // 0.1 V / "speed" / 64
-   parameter.speedI = 100; // 0.1 V / "speed" / 128 / 1024
-   parameter.speedWP = 1700; // 1.7 V
-   parameter.voltageP = 96;
+   parameter.targetSpeed = -5;
+   parameter.speedP = 80;
+   parameter.speedI = 80;
+   parameter.speedWP = 2150;
+   parameter.voltageP = 80;
    parameter.voltageD = 80;
    parameter.speedFeedback = 75;
    parameter.pwmLamp = 100;
