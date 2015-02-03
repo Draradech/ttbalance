@@ -3,26 +3,26 @@
 void actuate()
 {
    static uint16_t standstill;
-   int16_t pwmLimit, voltageDeviationOld;
+   int16_t pwmLimit, voltageDeviationOld, targetSpeed;
 
    OCR1B = parameter.pwmLamp;
    
+   targetSpeed = parameter.targetSpeed * 10;
    if(ABS(sensorData.filteredSpeed) / 1024 < 5 && mode == 2)
    {
-      
-      if(standstill < 1000) standstill++;
-      else
+      standstill++;
+      if(standstill > 0x400)
       {
-         if(parameter.targetSpeed > 0) controlState.targetSpeedGradlim+=2;
-         else                          controlState.targetSpeedGradlim-=2;
+         targetSpeed = (standstill & 0x400) - 0x200;
       }
    }
    else
    {
       standstill = 0;
-      if(parameter.targetSpeed * 10 > controlState.targetSpeedGradlim) controlState.targetSpeedGradlim++;
-      if(parameter.targetSpeed * 10 < controlState.targetSpeedGradlim) controlState.targetSpeedGradlim--;
    }
+   
+   if(targetSpeed > controlState.targetSpeedGradlim) controlState.targetSpeedGradlim += 2;
+   if(targetSpeed < controlState.targetSpeedGradlim) controlState.targetSpeedGradlim -= 2;
 
    controlState.targetSpeedGradlim = LIMIT(controlState.targetSpeedGradlim, -1500, 1500);
    

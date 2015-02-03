@@ -3,7 +3,7 @@
 ENTRY('1', parameter.targetSpeed,           0,    2.0,         "/ min",  "target speed",          -255.0,   255.0      )
 ENTRY('2', parameter.speedP,                0,    1.0,         "",       "speed controller P",    -255.0,   255.0      )
 ENTRY('3', parameter.speedI,                0,    1.0,         "",       "speed controller I",    -255.0,   255.0      )
-ENTRY('4', parameter.speedWP,               0,    0.1,         "V",      "speed controller WP",   -255.0,   255.0      )
+ENTRY('4', parameter.speedWP,               0,    0.001,       "V",      "speed controller WP",   -255.0,   255.0      )
 ENTRY('5', parameter.voltageP,              0,    1.0,         "",       "position controller P", -255.0,   255.0      )
 ENTRY('6', parameter.voltageD,              0,    1.0,         "",       "position controller D", -255.0,   255.0      )
 ENTRY('7', parameter.speedFeedback,         0,    1.0,         "",       "speed feedback",        -255.0,   255.0      )
