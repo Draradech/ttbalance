@@ -28,6 +28,9 @@ typedef struct
    int16_t   voltageD;
    int16_t   speedFeedback;
    int16_t   pwmLamp;
+   int16_t   tcVoltage;
+   int16_t   tcSpeed1;
+   int16_t   tcSpeed2;
 } SParameter;
 
 typedef struct

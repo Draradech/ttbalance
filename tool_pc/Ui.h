@@ -24,6 +24,7 @@ public:
 
 	void keyDown(char key);
 	void keyUp(char key);
+   void checkKeyRepeat();
 	void mouseButton(int button, int state);
 	void mouseMotion(int x, int y);
 	void draw(int width, int height);
@@ -33,10 +34,14 @@ public:
 	void sendData(unsigned char byte);
 
 private:
+   void handleKey(char key);
+
 	CTool* m_pTool;
 	int m_iMouseX, m_iMouseY;
 	char m_sBuffer[512];
 	Overlay_t m_eActiveOverlay;
 	int m_iZoomOut;
 	int m_iSkip;
+   char m_cKeyRepeat;
+   int m_iKeyRepeatTimer;
 };

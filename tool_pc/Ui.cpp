@@ -19,7 +19,7 @@ CUi::~CUi(void)
 {
 }
 
-void CUi::keyDown(char key)
+void CUi::handleKey(char key)
 {
 	switch(m_eActiveOverlay)
 	{
@@ -60,34 +60,6 @@ void CUi::keyDown(char key)
 				case 'o':
 				{
 					if(m_iZoomOut < 10) m_iZoomOut++;
-					break;
-				}
-				case 'w':
-				{
-					sendPacketBegin('f');
-					sendData(75);
-					sendPacketEnd();
-					break;
-				}
-				case 's':
-				{
-					sendPacketBegin('f');
-					sendData(-75);
-					sendPacketEnd();
-					break;
-				}
-				case 'a':
-				{
-					sendPacketBegin('l');
-					sendData(-75);
-					sendPacketEnd();
-					break;
-				}
-				case 'd':
-				{
-					sendPacketBegin('l');
-					sendData(75);
-					sendPacketEnd();
 					break;
 				}
 				// todo: check bounds
@@ -186,8 +158,32 @@ void CUi::keyDown(char key)
 	glutPostRedisplay();
 }
 
+void CUi::checkKeyRepeat(void)
+{
+   if(m_cKeyRepeat)
+   {
+      if(m_iKeyRepeatTimer == 0)
+      {
+         m_iKeyRepeatTimer = 2;
+         handleKey(m_cKeyRepeat);
+      }
+      else
+      {
+         m_iKeyRepeatTimer--;
+      }
+   }
+}
+
+void CUi::keyDown(char key)
+{
+   m_cKeyRepeat = key;
+   m_iKeyRepeatTimer = 30;
+   handleKey(m_cKeyRepeat);
+}
+
 void CUi::keyUp(char key)
 {
+   m_cKeyRepeat = 0;
 }
 
 void CUi::mouseButton(int button, int state)

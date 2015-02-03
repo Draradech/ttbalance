@@ -8,5 +8,8 @@ ENTRY('5', parameter.voltageP,              0,    1.0,         "",       "positi
 ENTRY('6', parameter.voltageD,              0,    1.0,         "",       "position controller D", -255.0,   255.0      )
 ENTRY('7', parameter.speedFeedback,         0,    1.0,         "",       "speed feedback",        -255.0,   255.0      )
 ENTRY('8', parameter.pwmLamp,               0,    1.0,         "",       "pwm lamp",              -255.0,   255.0      )
+ENTRY('9', parameter.tcVoltage,             0,    1.0,         "ms",     "tc voltage",            -255.0,   255.0      )
+ENTRY('a', parameter.tcSpeed1,              0,    1.0,         "ms",     "tc speed 1",            -255.0,   255.0      )
+ENTRY('b', parameter.tcSpeed2,              0,    1.0,         "ms",     "tc speed 2",            -255.0,   255.0      )
 ENTRY(0,   lastLoopTicks,                   0,    0.0,         "",       "end of table",             0.0,     0.0      )
 

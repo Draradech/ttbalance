@@ -117,6 +117,9 @@ void init(void)
    parameter.voltageD = 80;
    parameter.speedFeedback = 75;
    parameter.pwmLamp = 100;
+   parameter.tcVoltage = 8;
+   parameter.tcSpeed1 = 32;
+   parameter.tcSpeed2 = 256;
    
    // Enable Interrupts
    sei();

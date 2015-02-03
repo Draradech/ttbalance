@@ -14,6 +14,7 @@ static int serialTimeOld;
 void display()
 {
    pTool->getCanvas()->display();
+   pTool->getUi()->checkKeyRepeat();
 }
 
 void idle()

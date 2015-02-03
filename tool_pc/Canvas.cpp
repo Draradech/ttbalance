@@ -17,7 +17,7 @@
 CCanvas::CCanvas(CTool* pTool)
 {
 	m_pTool = pTool;
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+   glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	m_iFrameCounter = 0;
 	m_iTimeOld = glutGet(GLUT_ELAPSED_TIME);
 	m_iFps = 0;
@@ -29,71 +29,71 @@ CCanvas::~CCanvas(void)
 
 void CCanvas::display()
 {
-    glClear(GL_COLOR_BUFFER_BIT);
+   glClear(GL_COLOR_BUFFER_BIT);
 
-    glLoadIdentity();
-    glTranslatef(0.5f, 0.5f, 0.0f); // pixel-perfect 2D drawing - haha, needs work, see drawLineV and drawLineH
+   glLoadIdentity();
+   glTranslatef(0.5f, 0.5f, 0.0f); // pixel-perfect 2D drawing - haha, needs work, see drawLineV and drawLineH
 
     // draw Grid
 	glPushMatrix();
 	glTranslatef(GLfloat(m_iGridOffsetX), GLfloat(m_iGridOffsetY), 0);
 	glBegin(GL_LINES);
-        glColor3f(0.5f, 0.5f, 0.5f);
-        for(int x = m_iSubGridWidth; x < m_iGridWidth; x = x + m_iSubGridWidth)
-        {
-            drawLineV(0, m_iGridHeight, x);
-        }
-        for(int y = m_iSubGridHeight; y < m_iGridHeight; y = y + m_iSubGridHeight)
-        {
-            drawLineH(0, m_iGridWidth, y);
-        }
-        glColor3f(1.0f, 1.0f, 1.0f);
-        drawLineH(0, m_iGridWidth, 0);
-        drawLineH(0, m_iGridWidth, m_iGridHeight);
-        drawLineV(0, m_iGridHeight, 0);
-        drawLineV(0, m_iGridHeight, m_iGridWidth);
-    glEnd();
+      glColor3f(0.5f, 0.5f, 0.5f);
+      for(int x = m_iSubGridWidth; x < m_iGridWidth; x = x + m_iSubGridWidth)
+      {
+         drawLineV(0, m_iGridHeight, x);
+      }
+      for(int y = m_iSubGridHeight; y < m_iGridHeight; y = y + m_iSubGridHeight)
+      {
+         drawLineH(0, m_iGridWidth, y);
+      }
+      glColor3f(1.0f, 1.0f, 1.0f);
+      drawLineH(0, m_iGridWidth, 0);
+      drawLineH(0, m_iGridWidth, m_iGridHeight);
+      drawLineV(0, m_iGridHeight, 0);
+      drawLineV(0, m_iGridHeight, m_iGridWidth);
+   glEnd();
 	glPopMatrix();
 
 	// draw Channelbox
 	glPushMatrix();
 	glTranslatef(GLfloat(m_iChannelsOffsetX), GLfloat(m_iChannelsOffsetY), 0.0f);
 	glBegin(GL_LINES);
-        glColor3f(0.5f, 0.5f, 0.5f);
-        for(int y = m_iChannelHeight; y < m_iChannelsHeight; y = y + m_iChannelHeight)
-        {
-            drawLineH(0, m_iChannelsWidth, y);
-        }
-        glColor3f(1.0f, 1.0f, 1.0f);
-        drawLineH(0, m_iChannelsWidth, 0);
-        drawLineH(0, m_iChannelsWidth, m_iChannelsHeight);
-        drawLineV(0, m_iChannelsHeight, 0);
-        drawLineV(0, m_iChannelsHeight, m_iChannelsWidth);
-    glEnd();
+      glColor3f(0.5f, 0.5f, 0.5f);
+      for(int y = m_iChannelHeight; y < m_iChannelsHeight; y = y + m_iChannelHeight)
+      {
+         drawLineH(0, m_iChannelsWidth, y);
+      }
+      glColor3f(1.0f, 1.0f, 1.0f);
+      drawLineH(0, m_iChannelsWidth, 0);
+      drawLineH(0, m_iChannelsWidth, m_iChannelsHeight);
+      drawLineV(0, m_iChannelsHeight, 0);
+      drawLineV(0, m_iChannelsHeight, m_iChannelsWidth);
+   glEnd();
 	glPopMatrix();
 
 	// draw lefttop
 	glPushMatrix();
 	glTranslatef(GLfloat(m_iLefttopOffsetX), GLfloat(m_iLefttopOffsetY), 0.0f);
 	glBegin(GL_LINES);
-        glColor3f(1.0f, 1.0f, 1.0f);
-        drawLineH(0, m_iChannelsWidth, 0);
-        drawLineH(0, m_iChannelsWidth, m_iLefttopHeight);
-        drawLineV(0, m_iLefttopHeight, 0);
-        drawLineV(0, m_iLefttopHeight, m_iChannelsWidth);
-    glEnd();
+      glColor3f(1.0f, 1.0f, 1.0f);
+      drawLineH(0, m_iChannelsWidth, 0);
+      drawLineH(0, m_iChannelsWidth, m_iLefttopHeight);
+      drawLineV(0, m_iLefttopHeight, 0);
+      drawLineV(0, m_iLefttopHeight, m_iChannelsWidth);
+   glEnd();
 	glPopMatrix();
 
 	// draw rightbottom
 	glPushMatrix();
 	glTranslatef(GLfloat(m_iRightbottomOffsetX), GLfloat(m_iRightbottomOffsetY), 0.0f);
 	glBegin(GL_LINES);
-        glColor3f(1.0f, 1.0f, 1.0f);
-        drawLineH(0, m_iGridWidth, 0);
-        drawLineH(0, m_iGridWidth, m_iRightbottomHeight);
-        drawLineV(0, m_iRightbottomHeight, 0);
-        drawLineV(0, m_iRightbottomHeight, m_iGridWidth);
-    glEnd();
+      glColor3f(1.0f, 1.0f, 1.0f);
+      drawLineH(0, m_iGridWidth, 0);
+      drawLineH(0, m_iGridWidth, m_iRightbottomHeight);
+      drawLineV(0, m_iRightbottomHeight, 0);
+      drawLineV(0, m_iRightbottomHeight, m_iGridWidth);
+   glEnd();
 	glPopMatrix();
 
 	// draw FPS
@@ -134,32 +134,32 @@ void CCanvas::display()
 	// draw UI Overlays
 	glPushMatrix();
 	glTranslatef(GLfloat(m_iGridOffsetX), GLfloat(m_iGridOffsetY), 0);
-    m_pTool->getUi()->draw(m_iGridWidth, m_iGridHeight);
+   m_pTool->getUi()->draw(m_iGridWidth, m_iGridHeight);
 	glPopMatrix();
 
-    // flush and swap buffers
+   // flush and swap buffers
 	glFlush();
-    glutSwapBuffers();
+   glutSwapBuffers();
 }
 
 void CCanvas::reshape(int w, int h)
 {
-    glViewport(0, 0, w, h);
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    glOrtho(0, w, h, 0, -1, 1); // left, right, bottom, top, near, far
-    glMatrixMode(GL_MODELVIEW);
+   glViewport(0, 0, w, h);
+   glMatrixMode(GL_PROJECTION);
+   glLoadIdentity();
+   glOrtho(0, w, h, 0, -1, 1); // left, right, bottom, top, near, far
+   glMatrixMode(GL_MODELVIEW);
 
-    //total
+   //total
 	m_iWidth = w;
-    m_iHeight = h;
+   m_iHeight = h;
 
 	// grid
 	m_iSubGridWidth = (m_iWidth - (BORDER + LEFT + BORDER + BORDER)) / GRID_DIVISIONS_X;
-    m_iSubGridHeight = (m_iHeight - (BORDER + BORDER + RIGHTBOTTOM + BORDER)) / GRID_DIVISIONS_Y;
+   m_iSubGridHeight = (m_iHeight - (BORDER + BORDER + RIGHTBOTTOM + BORDER)) / GRID_DIVISIONS_Y;
 
-    m_iGridWidth = GRID_DIVISIONS_X * m_iSubGridWidth;
-    m_iGridHeight = GRID_DIVISIONS_Y * m_iSubGridHeight;
+   m_iGridWidth = GRID_DIVISIONS_X * m_iSubGridWidth;
+   m_iGridHeight = GRID_DIVISIONS_Y * m_iSubGridHeight;
 
 	m_iGridOffsetX = m_iWidth - BORDER - m_iGridWidth;
 	m_iGridOffsetY = BORDER;
@@ -188,32 +188,32 @@ void CCanvas::reshape(int w, int h)
 
 void CCanvas::drawLineV(int y1, int y2, int x)
 {
-    if(y1 < y2)
-    {
-        y2++;
-        glVertex2i(x, y1);
-        glVertex2i(x, y2);
-    }
-    else
-    {
-        y1++;
-        glVertex2i(x, y2);
-        glVertex2i(x, y1);
-    }
+   if(y1 < y2)
+   {
+      y2++;
+      glVertex2i(x, y1);
+      glVertex2i(x, y2);
+   }
+   else
+   {
+      y1++;
+      glVertex2i(x, y2);
+      glVertex2i(x, y1);
+   }
 }
 
 void CCanvas::drawLineH(int x1, int x2, int y)
 {
-    if(x1 < x2)
-    {
-        x2++;
-		glVertex2i(x1, y);
-        glVertex2i(x2, y);
-    }
-    else
-    {
-        x1++;
-        glVertex2i(x2, y);
-        glVertex2i(x1, y);
-    }
+   if(x1 < x2)
+   {
+      x2++;
+      glVertex2i(x1, y);
+      glVertex2i(x2, y);
+   }
+   else
+   {
+      x1++;
+      glVertex2i(x2, y);
+      glVertex2i(x1, y);
+   }
 }

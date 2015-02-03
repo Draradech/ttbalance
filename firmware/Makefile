@@ -53,17 +53,17 @@ LDFLAGS += -lm
 AVRDUDE_PROGRAMMER = avr109
 
 # Programming port
-AVRDUDE_PORT = /dev/rfcomm0
-#AVRDUDE_PORT = \\\\.\COM17
+#AVRDUDE_PORT = /dev/rfcomm0
+AVRDUDE_PORT = \\\\.\COM17
 
 # Avrdude config
-#AVRDUDE_CONFIG = D:\Privat\Programme\arduino-1.0.6\hardware\tools\avr\etc\avrdude.conf
+AVRDUDE_CONFIG = D:\Privat\Programme\arduino-1.0.6\hardware\tools\avr\etc\avrdude.conf
 
 # Programming command
 AVRDUDE_WRITE_FLASH = -U flash:w:$(TARGET).hex
 AVRDUDE_WRITE_EEPROM = -U eeprom:w:$(TARGET).eep
 
-AVRDUDE_FLAGS = -p $(MCU) -P $(AVRDUDE_PORT) -c $(AVRDUDE_PROGRAMMER) #-C $(AVRDUDE_CONFIG)
+AVRDUDE_FLAGS = -p $(MCU) -P $(AVRDUDE_PORT) -c $(AVRDUDE_PROGRAMMER) -C $(AVRDUDE_CONFIG)
 
 
 #============================================================================

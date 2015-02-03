@@ -30,21 +30,21 @@ void readSensors(void)
    readPulses();
 
    tmp16 = (int32_t) sensorData.voltageRaw * 1250 >> 8;        // * 5000 (5,0 V) / 1024
-   sensorData.voltage = PT1(tmp16, sensorData.voltage, 8);
+   sensorData.voltage = PT1(tmp16, sensorData.voltage, parameter.tcVoltage);
    
    tmp32 = (int32_t) sensorData.pulses * 125 * 1024;
-   sensorData.speed = PT1(tmp32, sensorData.speed, 32);
+   sensorData.speed = PT1(tmp32, sensorData.speed, parameter.tcSpeed1);
    
    tmp32 = (int32_t) sensorData.speed;
-   sensorData.filteredSpeed = PT1(tmp32, sensorData.filteredSpeed, 256);
+   sensorData.filteredSpeed = PT1(tmp32, sensorData.filteredSpeed, parameter.tcSpeed2);
    
    if(pinold != ((PINA & (1 << PA1)) >> PA1))
    {
-	   if(pinold == 0)
-	   {
-		   mode = !mode;
-	   }
-	   pinold = !pinold;
+      if(pinold == 0)
+      {
+         mode = !mode;
+      }
+      pinold = !pinold;
    }
 }
 
